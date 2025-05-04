@@ -1,0 +1,15 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+  ],
+  "settings": {
+    "objectscript.conn": {
+      "active": false
+    },
+    "objectscript.ignoreInstallServerManager": true,
+    "intersystems.servers": {
+    }
+  }
+}
