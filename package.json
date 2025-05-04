@@ -1,0 +1,1869 @@
+{
+  "name": "vscode-objectscript",
+  "displayName": "InterSystems ObjectScript",
+  "description": "InterSystems ObjectScript language support for Visual Studio Code",
+  "version": "2.12.9-SNAPSHOT",
+  "icon": "images/logo.png",
+  "aiKey": "9cd75d51-697c-406c-a929-2bcf46e97c64",
+  "categories": [
+    "Programming Languages",
+    "Other",
+    "Snippets",
+    "Debuggers",
+    "Formatters"
+  ],
+  "keywords": [
+    "objectscript",
+    "intersystems",
+    "debug"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/intersystems-community/vscode-objectscript"
+  },
+  "homepage": "https://docs.intersystems.com/components/csp/docbook/DocBook.UI.Page.cls?KEY=GVSCO",
+  "license": "MIT",
+  "publisher": "intersystems-community",
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    }
+  },
+  "contributors": [
+    {
+      "name": "Dmitry Maslennikov",
+      "email": "mrdaimor@gmail.com"
+    },
+    {
+      "name": "Nikita Savchenko",
+      "email": "me@nikita.tk"
+    },
+    {
+      "name": "Oleg Dmitrovich",
+      "email": "doublefint@gmail.com"
+    },
+    {
+      "name": "John Murray",
+      "email": "johnm@georgejames.com"
+    }
+  ],
+  "engines": {
+    "vscode": "^1.91.0"
+  },
+  "enabledApiProposals": [
+    "fileSearchProvider",
+    "textSearchProvider"
+  ],
+  "activationEvents": [
+    "onDebug",
+    "workspaceContains:**/*.cls",
+    "workspaceContains:**/*.mac",
+    "workspaceContains:**/*.int",
+    "workspaceContains:**/*.inc",
+    "workspaceContains:**/*.csp",
+    "workspaceContains:**/*.csr",
+    "onCommand:vscode-objectscript.explorer.open",
+    "onLanguage:objectscript",
+    "onLanguage:objectscript-int",
+    "onLanguage:objectscript-class",
+    "onLanguage:objectscript-macros",
+    "onLanguage:xml",
+    "onView:intersystems-community_servermanager",
+    "onFileSystem:isfs",
+    "onFileSystem:isfs-readonly",
+    "onFileSystem:objectscript",
+    "onDebugInitialConfigurations"
+  ],
+  "main": "./dist/extension",
+  "browser": "./dist/web-extension",
+  "contributes": {
+    "viewsWelcome": [
+      {
+        "view": "explorer",
+        "contents": "Begin your local ObjectScript development by opening a folder or cloning a repository. Then switch to the InterSystems: Explorer view in the Activity Bar.\nYou can also create a new workspace to [edit or view code directly on an InterSystems server](https://docs.intersystems.com/components/csp/docbook/DocBook.UI.Page.cls?KEY=GVSCO_ssworkflow).\n[Choose Server and Namespace](command:vscode-objectscript.addServerNamespaceToWorkspace)"
+      },
+      {
+        "view": "ObjectScriptExplorer",
+        "contents": "Connect a local workspace folder to an [InterSystems server](https://docs.intersystems.com/components/csp/docbook/DocBook.UI.Page.cls?KEY=GVSCO_ssworkflow) if you want to export or import ObjectScript code.\n[Choose Server and Namespace](command:vscode-objectscript.connectFolderToServerNamespace)\nOr [hide this view](command:vscode-objectscript.hideExplorerForWorkspace) if it is not needed for the current workspace.",
+        "when": "vscode-objectscript.explorerRootCount == 0"
+      },
+      {
+        "view": "ObjectScriptProjectsExplorer",
+        "contents": "To view or edit projects, create a virtual workspace folder to [edit or view code directly on an InterSystems server](https://docs.intersystems.com/components/csp/docbook/DocBook.UI.Page.cls?KEY=GVSCO_ssworkflow).\n[Add Server Namespace to Workspace](command:vscode-objectscript.addServerNamespaceToWorkspace)",
+        "when": "vscode-objectscript.projectsExplorerRootCount == 0 && workspaceFolderCount <= 0"
+      },
+      {
+        "view": "ObjectScriptProjectsExplorer",
+        "contents": "To view or edit projects, create a virtual workspace folder to [edit or view code directly on an InterSystems server](https://docs.intersystems.com/components/csp/docbook/DocBook.UI.Page.cls?KEY=GVSCO_ssworkflow).\n[Add Server Namespace to Workspace](command:vscode-objectscript.addServerNamespaceToWorkspace)\nOr connect a local workspace folder to an [InterSystems server](https://docs.intersystems.com/components/csp/docbook/DocBook.UI.Page.cls?KEY=GVSCO_ssworkflow).\n[Choose Server and Namespace](command:vscode-objectscript.connectFolderToServerNamespace)",
+        "when": "vscode-objectscript.projectsExplorerRootCount == 0 && workspaceFolderCount > 0"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "vscode-objectscript.touchBar.compile",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.touchBar.viewOthers",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.compile",
+          "when": "editorLangId =~ /^objectscript/ && vscode-objectscript.connectActive"
+        },
+        {
+          "command": "vscode-objectscript.refreshLocalFile",
+          "when": "resourceScheme == file && editorLangId =~ /^objectscript/ && vscode-objectscript.connectActive"
+        },
+        {
+          "command": "vscode-objectscript.compileWithFlags",
+          "when": "editorLangId =~ /^objectscript/ && vscode-objectscript.connectActive"
+        },
+        {
+          "command": "vscode-objectscript.compileAll",
+          "when": "vscode-objectscript.connectActive"
+        },
+        {
+          "command": "vscode-objectscript.compileAllWithFlags",
+          "when": "vscode-objectscript.connectActive"
+        },
+        {
+          "command": "vscode-objectscript.viewOthers",
+          "when": "vscode-objectscript.connectActive"
+        },
+        {
+          "command": "vscode-objectscript.subclass",
+          "when": "editorLangId =~ /^objectscript/ && vscode-objectscript.connectActive"
+        },
+        {
+          "command": "vscode-objectscript.superclass",
+          "when": "editorLangId =~ /^objectscript/ && vscode-objectscript.connectActive"
+        },
+        {
+          "command": "vscode-objectscript.previewXml",
+          "when": "vscode-objectscript.connectActive && resourceExtname =~ /^\\.xml$/i && !(resourceScheme =~ /^isfs(-readonly)?$/)"
+        },
+        {
+          "command": "vscode-objectscript.explorer.export",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.explorer.otherNamespace",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.explorer.otherNamespaceClose",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.explorer.showGenerated",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.explorer.hideGenerated",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.explorer.showSystem",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.explorer.hideSystem",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.compileFolder",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.importFolder",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.explorer.delete",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.explorer.compile",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.explorer.refresh",
+          "when": "vscode-objectscript.connectActive"
+        },
+        {
+          "command": "vscode-objectscript.explorer.project.refresh",
+          "when": "vscode-objectscript.connectActive"
+        },
+        {
+          "command": "vscode-objectscript.serverCommands.sourceControl",
+          "when": "vscode-objectscript.connectActive && resourceScheme == isfs || (vscode-objectscript.connectActive && !editorIsOpen)"
+        },
+        {
+          "command": "vscode-objectscript.serverCommands.contextSourceControl",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.serverCommands.other",
+          "when": "vscode-objectscript.connectActive && resourceScheme =~ /^isfs(-readonly)?$/ || (vscode-objectscript.connectActive && !editorIsOpen)"
+        },
+        {
+          "command": "vscode-objectscript.serverCommands.contextOther",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.hideExplorerForWorkspace",
+          "when": "config.objectscript.showExplorer"
+        },
+        {
+          "command": "vscode-objectscript.showExplorerForWorkspace",
+          "when": "!config.objectscript.showExplorer"
+        },
+        {
+          "command": "vscode-objectscript.jumpToTagAndOffset",
+          "when": "editorLangId =~ /^objectscript(-int)?$/"
+        },
+        {
+          "command": "vscode-objectscript.compileOnly",
+          "when": "editorLangId =~ /^objectscript/ && vscode-objectscript.connectActive"
+        },
+        {
+          "command": "vscode-objectscript.compileOnlyWithFlags",
+          "when": "editorLangId =~ /^objectscript/ && vscode-objectscript.connectActive"
+        },
+        {
+          "command": "vscode-objectscript.editOthers",
+          "when": "editorLangId =~ /^objectscript/ && vscode-objectscript.connectActive"
+        },
+        {
+          "command": "vscode-objectscript.showClassDocumentationPreview",
+          "when": "editorLangId == objectscript-class && activeCustomEditorId == ''"
+        },
+        {
+          "command": "vscode-objectscript.exportCurrentFile",
+          "when": "resourceScheme == objectscript && vscode-objectscript.connectActive"
+        },
+        {
+          "command": "vscode-objectscript.explorer.project.exportProjectContents",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.explorer.project.compileProjectContents",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.explorer.project.openOtherServerNs",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.explorer.project.closeOtherServerNs",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.explorer.project.addWorkspaceFolderForProject",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.removeFromProject",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.loadStudioSnippets",
+          "when": "isWindows"
+        },
+        {
+          "command": "vscode-objectscript.loadStudioColors",
+          "when": "isWindows"
+        },
+        {
+          "command": "vscode-objectscript.newFile.businessOperation",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.newFile.bpl",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.newFile.rule",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.newFile.businessService",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.newFile.dtl",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.newFile.kpi",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.importLocalFilesServerSide",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.showRESTDebugWebview",
+          "when": "editorLangId =~ /^objectscript/ && vscode-objectscript.connectActive && activeCustomEditorId == ''"
+        },
+        {
+          "command": "vscode-objectscript.modifyWsFolder",
+          "when": "vscode-objectscript.connectActive && workspaceFolderCount != 0"
+        },
+        {
+          "command": "vscode-objectscript.openErrorLocation",
+          "when": "vscode-objectscript.connectActive && workspaceFolderCount != 0"
+        },
+        {
+          "command": "vscode-objectscript.launchWebSocketTerminal",
+          "when": "vscode-objectscript.connectActive"
+        },
+        {
+          "command": "vscode-objectscript.intersystems-servermanager.webterminal",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.ObjectScriptExplorer.webterminal",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.importXMLFiles",
+          "when": "vscode-objectscript.connectActive && workspaceFolderCount != 0"
+        },
+        {
+          "command": "vscode-objectscript.exportToXMLFile",
+          "when": "vscode-objectscript.connectActive && workspaceFolderCount != 0"
+        },
+        {
+          "command": "vscode-objectscript.extractXMLFileContents",
+          "when": "vscode-objectscript.connectActive && workspaceFolderCount != 0"
+        },
+        {
+          "command": "vscode-objectscript.compileIsfs",
+          "when": "false"
+        },
+        {
+          "command": "vscode-objectscript.openISCDocument",
+          "when": "vscode-objectscript.connectActive && workspaceFolderCount != 0"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "vscode-objectscript.explorer.refresh",
+          "when": "view == ObjectScriptExplorer",
+          "group": "navigation"
+        },
+        {
+          "command": "vscode-objectscript.explorer.project.refresh",
+          "when": "view == ObjectScriptProjectsExplorer",
+          "group": "navigation"
+        },
+        {
+          "command": "vscode-objectscript.explorer.project.openOtherServerNs",
+          "when": "view == ObjectScriptProjectsExplorer && vscode-objectscript.projectsExplorerRootCount > 0",
+          "group": "navigation"
+        },
+        {
+          "command": "vscode-objectscript.openISCDocument",
+          "when": "view == workbench.explorer.fileView && vscode-objectscript.connectActive && workspaceFolderCount != 0",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "vscode-objectscript.explorer.export",
+          "when": "view == ObjectScriptExplorer && (viewItem =~ /^dataNode:/ || viewItem =~ /^dataRootNode:(?!cspRootNode)/)",
+          "group": "1_objectscript_modify"
+        },
+        {
+          "command": "vscode-objectscript.explorer.delete",
+          "when": "view == ObjectScriptExplorer && viewItem =~ /^dataNode:/",
+          "group": "1_objectscript_modify"
+        },
+        {
+          "command": "vscode-objectscript.explorer.compile",
+          "when": "view == ObjectScriptExplorer && viewItem =~ /^dataNode:/",
+          "group": "1_objectscript_modify"
+        },
+        {
+          "command": "vscode-objectscript.serverCommands.contextSourceControl",
+          "when": "view =~ /^ObjectScript(Projects)?Explorer$/ && viewItem =~ /^dataNode:/",
+          "group": "9_objectscript_servercommand@1"
+        },
+        {
+          "command": "vscode-objectscript.serverCommands.contextOther",
+          "when": "view =~ /^ObjectScript(Projects)?Explorer$/ && viewItem =~ /^dataNode:/",
+          "group": "9_objectscript_servercommand@2"
+        },
+        {
+          "command": "vscode-objectscript.explorer.otherNamespace",
+          "when": "view == ObjectScriptExplorer && viewItem =~ /^serverNode((?!:extra:).)*$/",
+          "group": "inline@30"
+        },
+        {
+          "command": "vscode-objectscript.explorer.otherNamespaceClose",
+          "when": "view == ObjectScriptExplorer && viewItem =~ /^serverNode.*:extra:/",
+          "group": "inline@30"
+        },
+        {
+          "command": "vscode-objectscript.ObjectScriptExplorer.webterminal",
+          "when": "view == ObjectScriptExplorer && viewItem =~ /^serverNode/",
+          "group": "inline@25"
+        },
+        {
+          "command": "vscode-objectscript.explorer.showGenerated",
+          "when": "view == ObjectScriptExplorer && viewItem =~ /^serverNode((?!:generated:).)*$/",
+          "group": "inline@20"
+        },
+        {
+          "command": "vscode-objectscript.explorer.hideGenerated",
+          "when": "view == ObjectScriptExplorer && viewItem =~ /^serverNode.*:generated:/",
+          "group": "inline@20"
+        },
+        {
+          "command": "vscode-objectscript.explorer.showSystem",
+          "when": "view == ObjectScriptExplorer && viewItem =~ /^serverNode((?!:(%SYS|system):).)*$/",
+          "group": "inline@10"
+        },
+        {
+          "command": "vscode-objectscript.explorer.hideSystem",
+          "when": "view == ObjectScriptExplorer && viewItem =~ /^serverNode.*:system:/",
+          "group": "inline@10"
+        },
+        {
+          "command": "vscode-objectscript.addItemsToProject",
+          "when": "view == ObjectScriptProjectsExplorer && viewItem =~ /^(dataNode:projectNode|dataRootNode)/",
+          "group": "5_objectscript_prj@1"
+        },
+        {
+          "command": "vscode-objectscript.removeFromProject",
+          "when": "view == ObjectScriptProjectsExplorer && viewItem =~ /^dataNode(?!:projectNode$).*/",
+          "group": "5_objectscript_prj@2"
+        },
+        {
+          "command": "vscode-objectscript.removeItemsFromProject",
+          "when": "view == ObjectScriptProjectsExplorer && viewItem == dataNode:projectNode",
+          "group": "5_objectscript_prj@2"
+        },
+        {
+          "command": "vscode-objectscript.createProject",
+          "when": "view == ObjectScriptProjectsExplorer && viewItem =~ /^projectsServerNsNode/",
+          "group": "5_objectscript_prj@3"
+        },
+        {
+          "command": "vscode-objectscript.deleteProject",
+          "when": "view == ObjectScriptProjectsExplorer && viewItem == dataNode:projectNode",
+          "group": "5_objectscript_prj@4"
+        },
+        {
+          "command": "vscode-objectscript.explorer.project.exportProjectContents",
+          "when": "view == ObjectScriptProjectsExplorer && viewItem == dataNode:projectNode",
+          "group": "5_objectscript_prj@5"
+        },
+        {
+          "command": "vscode-objectscript.explorer.project.compileProjectContents",
+          "when": "view == ObjectScriptProjectsExplorer && viewItem == dataNode:projectNode",
+          "group": "5_objectscript_prj@6"
+        },
+        {
+          "command": "vscode-objectscript.explorer.project.addWorkspaceFolderForProject",
+          "when": "view == ObjectScriptProjectsExplorer && viewItem == dataNode:projectNode",
+          "group": "5_objectscript_prj@7"
+        },
+        {
+          "command": "vscode-objectscript.modifyProjectMetadata",
+          "when": "view == ObjectScriptProjectsExplorer && viewItem == dataNode:projectNode",
+          "group": "5_objectscript_prj@8"
+        },
+        {
+          "command": "vscode-objectscript.explorer.project.closeOtherServerNs",
+          "when": "view == ObjectScriptProjectsExplorer && viewItem == projectsServerNsNode:extra",
+          "group": "inline@10"
+        },
+        {
+          "command": "vscode-objectscript.intersystems-servermanager.webterminal",
+          "when": "view == intersystems-community_servermanager && viewItem =~ /namespace$/ && (viewItem > 6 || !(viewItem =~ /^\\d+/))",
+          "group": "inline@1"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "vscode-objectscript.viewOthers",
+          "when": "vscode-objectscript.connectActive",
+          "group": "objectscript@1"
+        },
+        {
+          "command": "vscode-objectscript.editOthers",
+          "when": "resourceScheme == file && editorLangId =~ /^objectscript/ && vscode-objectscript.connectActive",
+          "group": "objectscript@2"
+        },
+        {
+          "command": "vscode-objectscript.compile",
+          "when": "editorLangId =~ /^objectscript/ && vscode-objectscript.connectActive",
+          "group": "objectscript@3"
+        },
+        {
+          "command": "vscode-objectscript.previewXml",
+          "when": "vscode-objectscript.connectActive && resourceExtname =~ /^\\.xml$/i && !(resourceScheme =~ /^isfs(-readonly)?$/)",
+          "group": "objectscript@4"
+        },
+        {
+          "command": "vscode-objectscript.serverCommands.contextSourceControl",
+          "when": "resourceScheme == isfs && vscode-objectscript.connectActive",
+          "group": "objectscript@5"
+        },
+        {
+          "command": "vscode-objectscript.serverCommands.contextOther",
+          "when": "resourceScheme =~ /^isfs(-readonly)?$/ && vscode-objectscript.connectActive",
+          "group": "objectscript@6"
+        },
+        {
+          "command": "vscode-objectscript.compileOnly",
+          "when": "editorLangId =~ /^objectscript/ && vscode-objectscript.connectActive",
+          "group": "objectscript@7"
+        },
+        {
+          "command": "vscode-objectscript.exportCurrentFile",
+          "when": "resourceScheme == objectscript && vscode-objectscript.connectActive",
+          "group": "objectscript@8"
+        },
+        {
+          "command": "vscode-objectscript.showRESTDebugWebview",
+          "when": "editorLangId =~ /^objectscript/ && vscode-objectscript.connectActive && activeCustomEditorId == ''",
+          "group": "objectscript@9"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "vscode-objectscript.serverCommands.sourceControl",
+          "group": "navigation@1",
+          "when": "vscode-objectscript.connectActive && resourceScheme == isfs"
+        },
+        {
+          "command": "vscode-objectscript.serverCommands.other",
+          "group": "navigation@2",
+          "when": "vscode-objectscript.connectActive && resourceScheme =~ /^isfs(-readonly)?$/"
+        },
+        {
+          "command": "vscode-objectscript.showClassDocumentationPreview",
+          "group": "navigation@3",
+          "when": "editorLangId == objectscript-class && activeCustomEditorId == ''"
+        }
+      ],
+      "editor/title/context": [
+        {
+          "command": "vscode-objectscript.showClassDocumentationPreview",
+          "group": "1_open",
+          "when": "resourceLangId == objectscript-class && activeCustomEditorId == ''"
+        },
+        {
+          "command": "vscode-objectscript.showRESTDebugWebview",
+          "group": "1_open",
+          "when": "resourceLangId =~ /^objectscript/ && vscode-objectscript.connectActive && activeCustomEditorId == ''"
+        }
+      ],
+      "touchBar": [
+        {
+          "command": "vscode-objectscript.touchBar.compile",
+          "group": "objectscript.compile",
+          "when": "editorLangId =~ /^objectscript/ && vscode-objectscript.connectActive"
+        },
+        {
+          "command": "vscode-objectscript.touchBar.viewOthers",
+          "group": "objectscript.viewOthers",
+          "when": "vscode-objectscript.connectActive"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "vscode-objectscript.addServerNamespaceToWorkspace",
+          "when": "explorerResourceIsFolder",
+          "group": "2_workspace"
+        },
+        {
+          "command": "vscode-objectscript.compileFolder",
+          "when": "vscode-objectscript.connectActive && resourceScheme == file",
+          "group": "objectscript_modify@1"
+        },
+        {
+          "command": "vscode-objectscript.importFolder",
+          "when": "vscode-objectscript.connectActive && resourceScheme == file",
+          "group": "objectscript_modify@1"
+        },
+        {
+          "command": "vscode-objectscript.serverCommands.contextSourceControl",
+          "when": "resourceScheme == isfs && vscode-objectscript.connectActive && resourcePath && !(resourcePath =~ /^\\/?$/) && !(explorerResourceIsFolder && resource =~ /\\?csp(%3D1|$)/) && !listMultiSelection",
+          "group": "objectscript_servercommand@1"
+        },
+        {
+          "command": "vscode-objectscript.serverCommands.contextOther",
+          "when": "resourceScheme =~ /^isfs(-readonly)?$/ && vscode-objectscript.connectActive && resourcePath && !(resourcePath =~ /^\\/?$/) && !(explorerResourceIsFolder && resource =~ /\\?csp(%3D1|$)/) && !listMultiSelection",
+          "group": "objectscript_servercommand@2"
+        },
+        {
+          "command": "vscode-objectscript.addItemsToProject",
+          "when": "vscode-objectscript.connectActive && resourceScheme =~ /^isfs(-readonly)?$/ && resource =~ /project%3D/ && explorerResourceIsRoot && !listMultiSelection",
+          "group": "objectscript_prj@1"
+        },
+        {
+          "command": "vscode-objectscript.removeFromProject",
+          "when": "vscode-objectscript.connectActive && resourceScheme =~ /^isfs(-readonly)?$/ && resource =~ /project%3D/ && !explorerResourceIsRoot && !listMultiSelection",
+          "group": "objectscript_prj@2"
+        },
+        {
+          "command": "vscode-objectscript.removeItemsFromProject",
+          "when": "vscode-objectscript.connectActive && resourceScheme =~ /^isfs(-readonly)?$/ && resource =~ /project%3D/ && explorerResourceIsRoot && !listMultiSelection",
+          "group": "objectscript_prj@2"
+        },
+        {
+          "command": "vscode-objectscript.modifyProjectMetadata",
+          "when": "vscode-objectscript.connectActive && resourceScheme =~ /^isfs(-readonly)?$/ && resource =~ /project%3D/ && explorerResourceIsRoot && !listMultiSelection",
+          "group": "objectscript_prj@3"
+        },
+        {
+          "command": "vscode-objectscript.importLocalFilesServerSide",
+          "when": "vscode-objectscript.connectActive && resourceScheme == isfs && explorerResourceIsRoot && !listMultiSelection",
+          "group": "objectscript_modify@2"
+        },
+        {
+          "command": "vscode-objectscript.modifyWsFolder",
+          "when": "vscode-objectscript.connectActive && resourceScheme =~ /^isfs(-readonly)?$/ && explorerResourceIsRoot && !listMultiSelection",
+          "group": "objectscript_modify@3"
+        },
+        {
+          "command": "vscode-objectscript.extractXMLFileContents",
+          "when": "vscode-objectscript.connectActive && resourceExtname =~ /^\\.xml$/i && !(resourceScheme =~ /^isfs(-readonly)?$/) && !listMultiSelection",
+          "group": "objectscript_modify@4"
+        },
+        {
+          "command": "vscode-objectscript.compileIsfs",
+          "when": "vscode-objectscript.connectActive && resourceScheme == isfs && resourcePath && !(resourcePath =~ /^\\/?$/) && !listMultiSelection",
+          "group": "objectscript_modify@1"
+        }
+      ],
+      "file/newFile": [
+        {
+          "command": "vscode-objectscript.newFile.kpi",
+          "when": "workspaceFolderCount != 0",
+          "group": "file"
+        },
+        {
+          "command": "vscode-objectscript.newFile.businessOperation",
+          "when": "workspaceFolderCount != 0",
+          "group": "file"
+        },
+        {
+          "command": "vscode-objectscript.newFile.bpl",
+          "when": "workspaceFolderCount != 0",
+          "group": "file"
+        },
+        {
+          "command": "vscode-objectscript.newFile.rule",
+          "when": "workspaceFolderCount != 0",
+          "group": "file"
+        },
+        {
+          "command": "vscode-objectscript.newFile.businessService",
+          "when": "workspaceFolderCount != 0",
+          "group": "file"
+        },
+        {
+          "command": "vscode-objectscript.newFile.dtl",
+          "when": "workspaceFolderCount != 0",
+          "group": "file"
+        }
+      ]
+    },
+    "languages": [
+      {
+        "id": "objectscript",
+        "aliases": [
+          "ObjectScript"
+        ],
+        "extensions": [
+          ".mac"
+        ],
+        "icon": {
+          "dark": "./images/fileIcon.svg",
+          "light": "./images/fileIcon.svg"
+        }
+      },
+      {
+        "id": "objectscript-int",
+        "aliases": [
+          "ObjectScript INT"
+        ],
+        "extensions": [
+          ".int"
+        ],
+        "icon": {
+          "dark": "./images/fileIcon.svg",
+          "light": "./images/fileIcon.svg"
+        }
+      },
+      {
+        "id": "objectscript-class",
+        "aliases": [
+          "ObjectScript Class"
+        ],
+        "extensions": [
+          ".cls"
+        ],
+        "icon": {
+          "dark": "./images/fileIcon.svg",
+          "light": "./images/fileIcon.svg"
+        }
+      },
+      {
+        "id": "objectscript-macros",
+        "aliases": [
+          "ObjectScript Include"
+        ],
+        "extensions": [
+          ".inc"
+        ],
+        "icon": {
+          "dark": "./images/fileIcon.svg",
+          "light": "./images/fileIcon.svg"
+        }
+      },
+      {
+        "id": "objectscript-csp",
+        "aliases": [
+          "ObjectScript CSP"
+        ],
+        "extensions": [
+          ".csp",
+          ".csr"
+        ],
+        "icon": {
+          "dark": "./images/fileIcon.svg",
+          "light": "./images/fileIcon.svg"
+        }
+      },
+      {
+        "id": "vscode-objectscript-output",
+        "aliases": []
+      },
+      {
+        "id": "objectscript-injection",
+        "aliases": []
+      },
+      {
+        "id": "objectscript-class-injection",
+        "aliases": []
+      }
+    ],
+    "grammars": [
+      {
+        "language": "objectscript",
+        "scopeName": "source.objectscript",
+        "path": "syntaxes/objectscript.tmLanguage.json",
+        "embeddedLanguages": {
+          "meta.embedded.block.sql": "sql",
+          "text.html": "html",
+          "text.js": "js"
+        }
+      },
+      {
+        "language": "objectscript-int",
+        "scopeName": "source.objectscript",
+        "path": "syntaxes/objectscript.tmLanguage.json"
+      },
+      {
+        "language": "objectscript-class",
+        "scopeName": "source.objectscript_class",
+        "path": "syntaxes/objectscript-class.tmLanguage.json",
+        "embeddedLanguages": {
+          "meta.embedded.block.sql": "sql",
+          "meta.embedded.block.objectscript": "objectscript",
+          "text.xml": "xml",
+          "text.html": "html",
+          "text.js": "js"
+        }
+      },
+      {
+        "language": "objectscript-macros",
+        "scopeName": "source.objectscript_macros",
+        "path": "syntaxes/objectscript-macros.tmLanguage.json",
+        "embeddedLanguages": {
+          "meta.preprocessor.objectscript": "source.objectscript"
+        }
+      },
+      {
+        "language": "objectscript-csp",
+        "scopeName": "source.objectscript_csp",
+        "path": "syntaxes/objectscript-csp.tmLanguage.json"
+      },
+      {
+        "language": "vscode-objectscript-output",
+        "scopeName": "source.vscode_objectscript_output",
+        "path": "syntaxes/vscode-objectscript-output.tmLanguage.json"
+      },
+      {
+        "language": "objectscript-injection",
+        "scopeName": "markdown.objectscript.codeblock",
+        "path": "./syntaxes/objectscript_codeblock.json",
+        "injectTo": [
+          "text.html.markdown"
+        ],
+        "embeddedLanguages": {
+          "meta.embedded.block.objectscript": "objectscript"
+        }
+      },
+      {
+        "language": "objectscript-class-injection",
+        "scopeName": "markdown.objectscript_class.codeblock",
+        "path": "./syntaxes/objectscript-class_codeblock.json",
+        "injectTo": [
+          "text.html.markdown"
+        ],
+        "embeddedLanguages": {
+          "meta.embedded.block.objectscript_class": "objectscript-class"
+        }
+      }
+    ],
+    "snippets": [
+      {
+        "language": "objectscript-class",
+        "path": "./snippets/objectscript-class.json"
+      },
+      {
+        "language": "objectscript",
+        "path": "./snippets/objectscript.json"
+      },
+      {
+        "language": "objectscript-int",
+        "path": "./snippets/objectscript-int.json"
+      }
+    ],
+    "commands": [
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.export",
+        "title": "Export Code from Server"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.compile",
+        "title": "Import and Compile Current File"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.previewXml",
+        "title": "Preview XML as UDL"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.compileWithFlags",
+        "title": "Import and Compile Current File with Specified Flags..."
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.compileAll",
+        "title": "Compile All Namespace Files"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.compileAllWithFlags",
+        "title": "Compile All Namespace Files with Specified Flags..."
+      },
+      {
+        "command": "vscode-objectscript.explorer.export",
+        "title": "Export",
+        "category": "ObjectScript"
+      },
+      {
+        "command": "vscode-objectscript.explorer.otherNamespace",
+        "title": "View Another Namespace...",
+        "icon": "$(add)",
+        "category": "ObjectScript"
+      },
+      {
+        "command": "vscode-objectscript.explorer.showGenerated",
+        "title": "Show Generated Items",
+        "icon": "$(server-process)",
+        "category": "ObjectScript"
+      },
+      {
+        "command": "vscode-objectscript.explorer.hideGenerated",
+        "title": "Hide Generated Items",
+        "icon": "$(server-process)",
+        "category": "ObjectScript"
+      },
+      {
+        "command": "vscode-objectscript.explorer.showSystem",
+        "title": "Show System Items",
+        "icon": "$(library)",
+        "category": "ObjectScript"
+      },
+      {
+        "command": "vscode-objectscript.explorer.hideSystem",
+        "title": "Hide System Items",
+        "icon": "$(library)",
+        "category": "ObjectScript"
+      },
+      {
+        "command": "vscode-objectscript.explorer.otherNamespaceClose",
+        "title": "Close Namespace",
+        "icon": "$(remove)",
+        "category": "ObjectScript"
+      },
+      {
+        "command": "vscode-objectscript.explorer.delete",
+        "title": "Delete",
+        "category": "ObjectScript"
+      },
+      {
+        "command": "vscode-objectscript.explorer.compile",
+        "title": "Compile",
+        "category": "ObjectScript"
+      },
+      {
+        "command": "vscode-objectscript.explorer.refresh",
+        "title": "Refresh Explorer",
+        "category": "ObjectScript",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "vscode-objectscript.explorer.project.refresh",
+        "title": "Refresh Projects Explorer",
+        "category": "ObjectScript",
+        "icon": "$(refresh)"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.jumpToTagAndOffset",
+        "title": "Jump to Tag + Offset"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.viewOthers",
+        "enablement": "vscode-objectscript.connectActive",
+        "title": "View Other"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.subclass",
+        "enablement": "vscode-objectscript.connectActive",
+        "title": "Go to Subclass..."
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.superclass",
+        "enablement": "vscode-objectscript.connectActive",
+        "title": "Go to Superclass..."
+      },
+      {
+        "command": "vscode-objectscript.touchBar.compile",
+        "title": "➾¹₀⁰₁¹₀"
+      },
+      {
+        "command": "vscode-objectscript.touchBar.viewOthers",
+        "title": "↹"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.serverActions",
+        "title": "Server Actions..."
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.compileFolder",
+        "title": "Import and Compile"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.refreshLocalFile",
+        "title": "Overwrite from Server"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.importFolder",
+        "title": "Import Without Compilation"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.serverCommands.sourceControl",
+        "title": "Server Source Control...",
+        "icon": "$(source-control)"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.serverCommands.contextSourceControl",
+        "title": "Server Source Control..."
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.serverCommands.other",
+        "title": "Server Command Menu...",
+        "icon": "$(server-environment)"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.serverCommands.contextOther",
+        "title": "Server Command Menu..."
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.addServerNamespaceToWorkspace",
+        "title": "Add Server Namespace to Workspace..."
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.connectFolderToServerNamespace",
+        "title": "Connect Folder to Server Namespace..."
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.hideExplorerForWorkspace",
+        "title": "Hide Explorer for Workspace"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.showExplorerForWorkspace",
+        "title": "Show Explorer for Workspace"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.compileOnly",
+        "title": "Compile Current File"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.compileOnlyWithFlags",
+        "title": "Compile Current File with Specified Flags..."
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.editOthers",
+        "title": "Edit Other"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.showClassDocumentationPreview",
+        "title": "Show Class Documentation Preview",
+        "icon": "$(open-preview)"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.exportCurrentFile",
+        "title": "Export Current File from Server"
+      },
+      {
+        "command": "vscode-objectscript.addItemsToProject",
+        "title": "Add Items to Project...",
+        "category": "ObjectScript"
+      },
+      {
+        "command": "vscode-objectscript.removeItemsFromProject",
+        "title": "Remove Items from Project...",
+        "category": "ObjectScript"
+      },
+      {
+        "command": "vscode-objectscript.modifyProjectMetadata",
+        "title": "Modify Project Metadata...",
+        "category": "ObjectScript"
+      },
+      {
+        "command": "vscode-objectscript.removeFromProject",
+        "title": "Remove from Project",
+        "category": "ObjectScript"
+      },
+      {
+        "command": "vscode-objectscript.createProject",
+        "title": "Create Project",
+        "category": "ObjectScript"
+      },
+      {
+        "command": "vscode-objectscript.deleteProject",
+        "title": "Delete Project",
+        "category": "ObjectScript"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.explorer.project.exportProjectContents",
+        "title": "Export Project Contents"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.explorer.project.compileProjectContents",
+        "title": "Compile Project Contents"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.explorer.project.openOtherServerNs",
+        "title": "View Projects in Another Server Namespace",
+        "icon": "$(add)"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.explorer.project.closeOtherServerNs",
+        "title": "Close Server Namespace",
+        "icon": "$(remove)"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.explorer.project.addWorkspaceFolderForProject",
+        "title": "Add Workspace Folder for Project"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.loadStudioSnippets",
+        "title": "Load Studio Snippets"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.loadStudioColors",
+        "title": "Load Studio Syntax Colors"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.newFile.kpi",
+        "title": "Business Intelligence KPI"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.newFile.businessOperation",
+        "title": "Business Operation"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.newFile.bpl",
+        "title": "Business Process"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.newFile.rule",
+        "title": "Business Rule"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.newFile.businessService",
+        "title": "Business Service"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.newFile.dtl",
+        "title": "Data Transformation"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.importLocalFilesServerSide",
+        "title": "Import Local Files..."
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.showRESTDebugWebview",
+        "title": "Debug REST Service..."
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.modifyWsFolder",
+        "title": "Modify Server-side Workspace Folder..."
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.openErrorLocation",
+        "title": "Open Error Location..."
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.launchWebSocketTerminal",
+        "title": "Launch Lite Terminal"
+      },
+      {
+        "command": "vscode-objectscript.intersystems-servermanager.webterminal",
+        "title": "Launch Lite Terminal",
+        "icon": "$(terminal)"
+      },
+      {
+        "command": "vscode-objectscript.ObjectScriptExplorer.webterminal",
+        "title": "Launch Lite Terminal",
+        "icon": "$(terminal)"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.importXMLFiles",
+        "title": "Import XML Files..."
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.exportToXMLFile",
+        "title": "Export Documents to XML File..."
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.extractXMLFileContents",
+        "title": "Extract Documents from XML File..."
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.compileIsfs",
+        "title": "Compile"
+      },
+      {
+        "category": "ObjectScript",
+        "command": "vscode-objectscript.openISCDocument",
+        "title": "Open InterSystems Document...",
+        "icon": "$(go-to-file)"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "vscode-objectscript.compile",
+        "key": "Ctrl+F7",
+        "mac": "Cmd+F7",
+        "when": "editorLangId =~ /^objectscript/"
+      },
+      {
+        "command": "vscode-objectscript.compileAll",
+        "key": "Ctrl+Shift+F7",
+        "mac": "Cmd+Shift+F7",
+        "when": "editorLangId =~ /^objectscript/"
+      },
+      {
+        "command": "vscode-objectscript.viewOthers",
+        "key": "Ctrl+Shift+V",
+        "mac": "Cmd+Shift+V",
+        "when": "editorLangId =~ /^objectscript/"
+      }
+    ],
+    "configuration": {
+      "title": "InterSystems ObjectScript",
+      "type": "object",
+      "properties": {
+        "objectscript.conn": {
+          "type": "object",
+          "description": "Server Access",
+          "scope": "resource",
+          "additionalProperties": false,
+          "required": [
+            "active"
+          ],
+          "properties": {
+            "active": {
+              "type": "boolean",
+              "description": "Whether the connection is active.",
+              "default": false
+            },
+            "server": {
+              "type": "string",
+              "pattern": "^[a-z0-9-._~]+$",
+              "markdownDescription": "Server defined in `#intersystems.servers#`"
+            },
+            "host": {
+              "type": "string",
+              "description": "Hostname or IP address of the web server.",
+              "anyOf": [
+                {
+                  "format": "hostname"
+                },
+                {
+                  "format": "ipv4"
+                },
+                {
+                  "format": "ipv6"
+                }
+              ],
+              "default": "localhost"
+            },
+            "port": {
+              "type": "integer",
+              "description": "TCP port number the web server listens on.",
+              "minimum": 1,
+              "maximum": 65535
+            },
+            "ns": {
+              "description": "Server namespace.",
+              "type": "string",
+              "default": "USER"
+            },
+            "username": {
+              "type": "string",
+              "description": "Username to connect as. If not set here it must be provided when connecting."
+            },
+            "password": {
+              "type": "string",
+              "description": "Password of username. If not set here it must be provided when connecting."
+            },
+            "https": {
+              "description": "Use SSL/TLS to access the server.",
+              "type": "boolean",
+              "default": false
+            },
+            "links": {
+              "description": "Extra links for the server command menu.",
+              "type": "object",
+              "patternProperties": {
+                ".*": {
+                  "type": "string",
+                  "description": "Key is displayed on menu. Value is the uri to open. Several ${...} substitution symbols are supported in the value.",
+                  "anyOf": [
+                    {
+                      "format": "uri"
+                    },
+                    {
+                      "pattern": "^\\${serverUrl}/.*"
+                    }
+                  ]
+                }
+              }
+            },
+            "docker-compose": {
+              "type": "object",
+              "description": "Connect to server running in docker-compose.",
+              "additionalProperties": false,
+              "properties": {
+                "service": {
+                  "description": "Name of service in docker-compose.",
+                  "type": "string"
+                },
+                "internalPort": {
+                  "description": "Target port inside the service in docker-compose.",
+                  "type": "number"
+                },
+                "file": {
+                  "description": "Name of docker-compose file.",
+                  "type": "string"
+                },
+                "envFile": {
+                  "description": "Name of env-file for docker-compose configuration.",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "objectscript.serverSourceControl.disableOtherActionTriggers": {
+          "description": "Prevent server-side source control 'other action' triggers from firing.",
+          "type": "boolean",
+          "scope": "resource",
+          "default": false
+        },
+        "objectscript.serverSourceControl.respectEditableStatus": {
+          "markdownDescription": "Set `isfs` document readonly if GetStatus method of server-side source control class returns Editable = 0.",
+          "type": "boolean",
+          "scope": "resource",
+          "default": false
+        },
+        "objectscript.export": {
+          "type": "object",
+          "description": "Control what to export from the server into the local folder.",
+          "scope": "resource",
+          "default": {
+            "folder": "src",
+            "addCategory": false,
+            "map": {},
+            "atelier": true,
+            "generated": false,
+            "filter": "",
+            "exactFilter": "",
+            "category": "*",
+            "noStorage": false,
+            "dontExportIfNoChanges": false,
+            "maxConcurrentConnections": 0,
+            "mapped": true
+          },
+          "properties": {
+            "folder": {
+              "description": "Folder for exported source code within workspace. This setting is relative to the workspace folder root.",
+              "type": "string"
+            },
+            "addCategory": {
+              "description": "Add a category folder to the beginning of the export path.",
+              "type": [
+                "boolean",
+                "object"
+              ]
+            },
+            "map": {
+              "markdownDescription": "Map file names before export, with regexp pattern as a key and replacement as a value (e.g. `{  \"%(.*)\": \"_$1\" }` to make % classes or routines use underscore prefix instead).",
+              "type": "object",
+              "examples": [
+                {
+                  "%(.*)": "_$1"
+                }
+              ],
+              "patternProperties": {
+                "\\(.*\\)": {
+                  "type": "string",
+                  "pattern": "\\$1"
+                }
+              },
+              "properties": {
+                "%(.*)": {
+                  "description": "Catch any % items. Set value to `_$1` to replace `%` prefix with `_`",
+                  "type": "string",
+                  "pattern": "\\$1",
+                  "default": "_$1"
+                },
+                "(.*)": {
+                  "description": "Match everything. Set value to `$1` to leave unchanged",
+                  "type": "string",
+                  "pattern": "\\$1",
+                  "default": "$1"
+                }
+              },
+              "additionalProperties": false
+            },
+            "atelier": {
+              "description": "Export source code as Atelier did it, with packages as subfolders. This setting only affects classes, routines, include files and DFI files.",
+              "type": "boolean"
+            },
+            "generated": {
+              "description": "Export generated source code files, such as INTs generated from classes.",
+              "type": "boolean"
+            },
+            "filter": {
+              "markdownDescription": "SQL filter to limit what to export. The filter is applied to document names using the [LIKE predicate](https://irisdocs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=RSQL_like) (i.e. `Name LIKE '%filter%'`).",
+              "type": "string"
+            },
+            "exactFilter": {
+              "markdownDescription": "SQL filter to limit what to export. The filter is applied to document names using the [LIKE predicate](https://irisdocs.intersystems.com/irislatest/csp/docbook/DocBook.UI.Page.cls?KEY=RSQL_like) (i.e. `Name LIKE 'exactFilter'`). If provided, `objectscript.export.filter` is ignored.",
+              "type": "string"
+            },
+            "category": {
+              "markdownDescription": "Category of source code to export: `CLS` = classes; `RTN` = routines; `CSP` = csp files; `OTH` = other. Default is `*` = all.",
+              "type": [
+                "string",
+                "object"
+              ]
+            },
+            "noStorage": {
+              "description": "Strip the storage definition on export. Can be useful when working across multiple systems.",
+              "type": "boolean"
+            },
+            "dontExportIfNoChanges": {
+              "description": "Do not rewrite the local file if the content is identical to what came from the server.",
+              "type": "boolean"
+            },
+            "maxConcurrentConnections": {
+              "description": "Maximum number of concurrent export connections. (0 = unlimited)",
+              "type": "number"
+            },
+            "mapped": {
+              "description": "Export source code files mapped from a non-default database.",
+              "type": "boolean"
+            }
+          }
+        },
+        "objectscript.showExplorer": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the InterSystems Explorer view."
+        },
+        "objectscript.compileFlags": {
+          "type": "string",
+          "default": "cuk",
+          "markdownDescription": "Compilation flags. Common compilation flags are ***b*** (compile dependent classes), ***k*** (keep generated source code) and ***u*** (skip related up-to-date documents). For descriptions of all available flags and qualifiers, click [here](https://docs.intersystems.com/irislatest/csp/docbook/Doc.View.cls?KEY=RCOS_vsystem_flags_qualifiers)."
+        },
+        "objectscript.overwriteServerChanges": {
+          "type": "boolean",
+          "default": false,
+          "description": "Overwrite a changed server version without confirmation when importing the local file."
+        },
+        "objectscript.autoPreviewXML": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically preview XML export files in UDL format."
+        },
+        "objectscript.format": {
+          "type": "object",
+          "description": "Formatting settings.",
+          "properties": {
+            "commandCase": {
+              "anyOf": [
+                "word",
+                "upper",
+                "lower"
+              ],
+              "default": "word",
+              "description": "Case for commands."
+            },
+            "functionCase": {
+              "anyOf": [
+                "word",
+                "upper",
+                "lower"
+              ],
+              "default": "word",
+              "description": "Case for system functions and system variables."
+            }
+          }
+        },
+        "objectscript.suppressCompileMessages": {
+          "default": true,
+          "type": "boolean",
+          "description": "Suppress popup messages about successful compile."
+        },
+        "objectscript.suppressCompileErrorMessages": {
+          "default": false,
+          "type": "boolean",
+          "description": "Suppress popup messages about errors during compile, but still focus on Output view."
+        },
+        "objectscript.debug.debugThisMethod": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Show inline `Debug` CodeLens action for ClassMethods and Routine Labels."
+        },
+        "objectscript.debug.copyToClipboard": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Show inline `Copy Invocation` CodeLens action for ClassMethods and Routine Labels."
+        },
+        "objectscript.studioActionDebugOutput": {
+          "type": "boolean",
+          "default": false,
+          "description": "Output in JSON format the action that VS Code should perform as requested by the server."
+        },
+        "objectscript.autoShowTerminal": {
+          "description": "Automatically show terminal when connected to docker-compose.",
+          "type": "boolean",
+          "default": false
+        },
+        "objectscript.autoAdjustName": {
+          "markdownDescription": "Automatically modify the class name or ROUTINE header to match the file's path when copying or creating a new file. Does not affect `isfs` files.",
+          "type": "boolean",
+          "default": true
+        },
+        "objectscript.compileOnSave": {
+          "description": "Automatically compile an InterSystems file when saved in the editor.",
+          "type": "boolean",
+          "default": true
+        },
+        "objectscript.multilineMethodArgs": {
+          "markdownDescription": "List method arguments on multiple lines, if the server supports it. **NOTE:** Only supported on IRIS 2019.1.2, 2020.1.1+, 2021.1.0+ and subsequent versions! On all other versions, this setting will have no effect.",
+          "type": "boolean",
+          "default": false
+        },
+        "objectscript.openClassContracted": {
+          "description": "Automatically collapse all class member folding ranges when a class is opened for the first time.",
+          "type": "boolean",
+          "default": false
+        },
+        "objectscript.explorer.alwaysShowServerCopy": {
+          "description": "Always show the server copy of a document opened from the InterSystems Explorer.",
+          "type": "boolean",
+          "default": false
+        },
+        "objectscript.projects.webAppFileExtensions": {
+          "markdownDescription": "When browsing a virtual workspace folder that has a project query parameter, all files with these extensions will be automatically treated as web application files. Extensions added here will be appended to the default list and should **NOT** include a dot. See the [Settings Reference documentation page](https://docs.intersystems.com/components/csp/docbook/DocBook.UI.Page.cls?KEY=GVSCO_settings#GVSCO_settings_objectscript) for a list of extensions included by default.",
+          "type": "array",
+          "default": [],
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[^.]+$"
+          }
+        },
+        "objectscript.importOnSave": {
+          "description": "Automatically save a client-side InterSystems file on the server when saved in the editor.",
+          "type": "boolean",
+          "default": true
+        },
+        "objectscript.showGeneratedFileDecorations": {
+          "description": "Controls whether a badge is shown in the file explorer and open editors view for generated files.",
+          "type": "boolean",
+          "default": true
+        },
+        "objectscript.webSocketTerminal.syntaxColoring": {
+          "description": "Enable syntax coloring for command input in the InterSystems Lite Terminal.",
+          "type": "boolean",
+          "default": true
+        },
+        "objectscript.showProposedApiPrompt": {
+          "description": "Controls whether a prompt to enable VS Code proposed APIs is shown when a server-side workspace folder is opened.",
+          "type": "boolean",
+          "default": true
+        },
+        "objectscript.unitTest.relativeTestRoots": {
+          "description": "Paths to where client-side test classes are stored. Relative to the workspace folder root.",
+          "type": "array",
+          "default": [],
+          "scope": "resource",
+          "items": {
+            "type": "string",
+            "pattern": "^([\\p{L}\\d_. -]+([\\/\\\\][\\p{L}\\d_. -]+)*)?$",
+            "patternErrorMessage": "Each folder name can only contain letters, digits, space, hyphen ('-'), period ('.'), or underscore ('_'), and the full path must neither begin nor end with a slash."
+          }
+        },
+        "objectscript.unitTest.autoload.folder": {
+          "markdownDescription": "When running client-side test classes, automatically load the contents of sub-directories with this name. See the [%UnitTest /autoload qualifier documentation](https://docs.intersystems.com/irislatest/csp/documatic/%25CSP.Documatic.cls?LIBRARY=%25SYS&CLASSNAME=%25UnitTest.Manager#RunTest) for details.",
+          "type": "string",
+          "default": "_autoload",
+          "scope": "resource",
+          "pattern": "^[\\p{L}\\d_. -]*$",
+          "patternErrorMessage": "Folder name can only contain letters, digits, space, hyphen ('-'), period ('.'), or underscore ('_')."
+        },
+        "objectscript.unitTest.autoload.xml": {
+          "description": "Controls whether the autoload feature loads XML files.",
+          "type": "boolean",
+          "default": true,
+          "scope": "resource"
+        },
+        "objectscript.unitTest.autoload.udl": {
+          "description": "Controls whether the autoload feature loads UDL files (cls, mac, int, inc).",
+          "type": "boolean",
+          "default": true,
+          "scope": "resource"
+        },
+        "objectscript.unitTest.showOutput": {
+          "description": "Controls whether unit test console output is shown.",
+          "type": "boolean",
+          "default": true,
+          "scope": "resource"
+        },
+        "objectscript.commentToken": {
+          "description": "The line comment characters for ObjectScript in classes and MAC and INC routines.",
+          "type": "string",
+          "enum": [
+            "#;",
+            "//",
+            ";"
+          ],
+          "enumDescriptions": [
+            "Comments do not appear in generated INT code.",
+            "Comments appear in generated INT code.",
+            "Comments appear in generated INT code."
+          ],
+          "default": "#;",
+          "scope": "machine"
+        },
+        "objectscript.intCommentToken": {
+          "description": "The line comment characters for INT routines.",
+          "type": "string",
+          "enum": [
+            "//",
+            ";"
+          ],
+          "default": "//",
+          "scope": "machine"
+        },
+        "objectscript.debug.stepGranularity": {
+          "markdownDescription": "Controls the granularity of the debugger's [step action buttons](https://code.visualstudio.com/docs/editor/debugging#_debug-actions). Changing this setting while a debugging session is active will not change the behavior of the active session. **NOTE:** Only supported on IRIS 2023.1.5, 2024.1.1+, 2024.2 and subsequent versions! On all other versions, line stepping will be used.",
+          "type": "string",
+          "enum": [
+            "command",
+            "line"
+          ],
+          "enumDescriptions": [
+            "The step buttons execute a single command.",
+            "The step buttons execute an entire line."
+          ],
+          "default": "command"
+        }
+      }
+    },
+    "views": {
+      "intersystems-community_servermanager": [
+        {
+          "id": "ObjectScriptExplorer",
+          "name": "Explorer",
+          "contextualTitle": "InterSystems",
+          "when": "workspaceFolderCount != 0 && config.objectscript.showExplorer == true"
+        },
+        {
+          "id": "ObjectScriptProjectsExplorer",
+          "name": "Projects",
+          "contextualTitle": "InterSystems",
+          "when": "workspaceFolderCount != 0"
+        }
+      ]
+    },
+    "breakpoints": [
+      {
+        "language": "objectscript"
+      },
+      {
+        "language": "objectscript-int"
+      },
+      {
+        "language": "objectscript-class"
+      }
+    ],
+    "debuggers": [
+      {
+        "type": "objectscript",
+        "label": "ObjectScript Debug",
+        "program": "./out/debug/debugAdapter.js",
+        "runtime": "node",
+        "configurationAttributes": {
+          "launch": {
+            "required": [],
+            "properties": {
+              "program": {
+                "type": "string",
+                "description": "Class or routine to debug."
+              }
+            }
+          },
+          "attach": {
+            "required": [],
+            "properties": {
+              "processId": {
+                "type": [
+                  "number",
+                  "string"
+                ],
+                "description": "ID of the process to attach to.",
+                "default": "${command:PickProcess}"
+              },
+              "system": {
+                "type": "boolean",
+                "description": "Enable attaching to system processes.",
+                "default": false
+              },
+              "cspDebugId": {
+                "type": [
+                  "number",
+                  "string"
+                ],
+                "description": "The CSP debug ID to use to identify the target process. If provided, 'processId' is ignored."
+              }
+            }
+          }
+        },
+        "variables": {
+          "PickProcess": "vscode-objectscript.pickProcess"
+        },
+        "initialConfigurations": [
+          {
+            "type": "objectscript",
+            "request": "launch",
+            "name": "XDebug"
+          },
+          {
+            "type": "objectscript",
+            "request": "attach",
+            "name": "Attach to running process"
+          }
+        ],
+        "configurationSnippets": [
+          {
+            "label": "ObjectScript Debug: Run current routine",
+            "description": "A new configuration for 'debugging' a user selected ObjectScript routine.",
+            "body": {
+              "type": "objectscript",
+              "request": "launch",
+              "name": "ObjectScript Run current routine",
+              "program": "^\"\\${file}\""
+            }
+          }
+        ]
+      }
+    ],
+    "resourceLabelFormatters": [
+      {
+        "scheme": "isfs",
+        "authority": "*",
+        "formatting": {
+          "label": "${authority}:${path}",
+          "separator": "/"
+        }
+      },
+      {
+        "scheme": "isfs-readonly",
+        "authority": "*",
+        "formatting": {
+          "label": "${authority}:${path}",
+          "separator": "/"
+        }
+      },
+      {
+        "scheme": "objectscript",
+        "authority": "*",
+        "formatting": {
+          "label": "${path} (read-only)",
+          "separator": "/"
+        }
+      }
+    ],
+    "customEditors": [
+      {
+        "viewType": "vscode-objectscript.rule",
+        "displayName": "Rule Editor",
+        "selector": [
+          {
+            "filenamePattern": "*.cls"
+          }
+        ],
+        "priority": "option"
+      }
+    ],
+    "terminal": {
+      "profiles": [
+        {
+          "id": "vscode-objectscript.webSocketTerminal",
+          "title": "InterSystems Lite Terminal",
+          "icon": "./images/fileIcon.svg"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "webpack --mode production",
+    "webpack": "webpack --mode development",
+    "webpack-dev": "webpack --mode development --watch",
+    "package": "vsce package",
+    "compile": "webpack --mode production && tsc -p ./",
+    "test-compile": "webpack --mode development && tsc -p ./",
+    "watch": "tsc -w -p ./tsconfig.json",
+    "pretest": "npm run test-compile",
+    "test": "node ./out/test/runTest.js",
+    "lint": "eslint src/**",
+    "lint-fix": "eslint --fix src/**",
+    "download-api": "dts dev 1.91.0",
+    "postinstall": "npm run download-api"
+  },
+  "devDependencies": {
+    "@types/istextorbinary": "2.3.1",
+    "@types/minimatch": "5.1.2",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^14.18.0",
+    "@types/semver": "7.5.4",
+    "@types/vscode": "1.91.0",
+    "@types/ws": "8.5.4",
+    "@types/xmldom": "^0.1.29",
+    "@typescript-eslint/eslint-plugin": "^4.32.0",
+    "@typescript-eslint/parser": "^4.32.0",
+    "@vscode/dts": "^0.4.0",
+    "@vscode/test-electron": "^2.3.8",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-promise": "^4.2.1",
+    "glob": "^7.1.6",
+    "mocha": "^9.1.3",
+    "path-browserify": "^1.0.1",
+    "prettier": "^2.0.5",
+    "ts-loader": "^7.0.5",
+    "typescript": "^4.4.3",
+    "vscode-debugadapter-testsupport": "^1.41.0",
+    "webpack": "^5.94.0",
+    "webpack-cli": "^4.5.0"
+  },
+  "dependencies": {
+    "@xmldom/xmldom": "^0.8.8",
+    "core-js": "^3.6.5",
+    "iconv-lite": "^0.6.0",
+    "istextorbinary": "^6.0.0",
+    "minimatch": "^9.0.3",
+    "node-cmd": "^5.0.0",
+    "node-fetch-cjs": "^3.3.2",
+    "vscode-cache": "^0.3.0",
+    "@vscode/debugadapter": "^1.61.0",
+    "@vscode/debugprotocol": "^1.61.0",
+    "vscode-extension-telemetry": "^0.1.6",
+    "ws": "^8.17.1"
+  },
+  "extensionDependencies": [
+    "intersystems-community.servermanager"
+  ]
+}
