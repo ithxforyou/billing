@@ -1,0 +1,10 @@
+node_modules/
+.idea
+*.iml
+.vscode-test/
+out/
+dist/
+*.vsix
+vscode*.d.ts
+test-fixtures
+.DS_Store
