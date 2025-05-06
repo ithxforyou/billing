@@ -1,0 +1,2 @@
+id,action,user_auth_token_id,client_ip,auth_token_hash,created_at,path,user_agent
+7323382,generate,33477,2001:44c8:4534:61:182c:e90d:ad20:7e57,222OJ...,2025-03-15 14:39:49 UTC,/u,"Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Mobile Safari/537.36 EdgA/134.0.0.0"
