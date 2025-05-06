@@ -1,0 +1,24 @@
+
+### What does my company’s legal team need @tr4200812:ithxforyou okay?
+If you’re releasing an open source project as a company employee, first, your legal team should know that you’re open sourcing a project
+For better or worse, consider letting them know even if it’s a personal project. You probably have an “employee IP agreement” with your company that gives them some control of your projects, especially if they are at all related to the company’s business or you use any company resources to develop the project. Your company should easily give you permission, and maybe already has through an employee-friendly IP agreement or a company policy. If not, you can negotiate (for example, explain that your project serves the company’s professional learning and development objectives for you), or avoid working on your project until you find a better company.
+
+If you’re open sourcing a project for your company, then definitely let them know. Your legal team probably already has policies for what open source license (and maybe additional contributor agreement) to use based on the company’s business requirements and expertise around ensuring your project complies with the licenses of its dependencies. If not, you and they are in luck! Your legal team should be eager to work with you to figure this stuff out. Some things to think about:
+
+Third party material: Does your project have dependencies created by others or otherwise include or use others’ code? If these are open source, you’ll need to comply with the materials’ open source licenses. That starts with choosing a license that works with the third party open source licenses (see above). If your project modifies or distributes third party open source material, then your legal team will also want to know that you’re meeting other conditions of the third party open source licenses such as retaining copyright notices. If your project uses others’ code that doesn’t have an open source license, you’ll probably have to ask the third party maintainers to add an open source license, and if you can’t get one, stop using their code in your project.
+
+Trade secrets: Consider whether there is anything in the project that the company does not want to make available to the general public. If so, you could open source the rest of your project, after extracting the material you want to keep private.
+
+Patents: Is your company applying for a patent of which open sourcing your project would constitute public disclosure? Sadly, you might be asked to wait (or maybe the company will reconsider the wisdom of the application). If you’re expecting contributions to your project from employees of companies with large patent portfolios, your legal team may want you to use a license with an express patent grant from contributors (such as Apache 2.0 or GPLv3), or an additional contributor agreement (see above).
+
+Trademarks: Double check that your project’s name does not conflict with any existing trademarks. If you use your own company trademarks in the project, check that it does not cause any conflicts. FOSSmarks is a practical guide to understanding trademarks in the context of free and open source projects.
+
+Privacy: Does your project collect data on users? “Phone home” to company servers? Your legal team can help you comply with company policies and external regulations.
+
+AI As AI models and functionality become integral to software, it is crucial to understand licensing agreements and relevant legislation controlling their use. Even when a model or service claims to be under a standard open source license, additional terms may impose restrictions, such as preventing abuse or fraud. New legislation is also putting restrictions on the types of systems or actions that can be performed by AI-based software.
+Software Bill of Materials A Software Bill of Materials (SBOM) is a comprehensive list of third-party dependencies, versions, associated licenses, and other metadata. SBOMs are legally mandated in certain countries, industries, or due to contractual obligations. A request for a SBOM often starts the license compliance journey for an organization.
+If you’re releasing your company’s first open source project, the above is more than enough to get through (but don’t worry, most projects shouldn’t raise any major concerns).
+
+Longer term, your legal team can do more to help the company get more from its involvement in open source, and stay safe:
+
+Employee contribution policies: Consider developing a corporate policy that specifies how your employees contribute to open source projects. A clear policy will reduce confusion among your employees and help them contribute to open source projects in the company’s best interest, whether as part of their jobs or in their free time. A good example is Rackspace’s Model IP and Open Source Contribution Policy.
