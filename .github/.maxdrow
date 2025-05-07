@@ -1,0 +1,154 @@
+Edit:
+Mixed-group with 111 update in the / directory: [rollup](https://github.com/rollup/rollup).
+
+Updates `rollup` from 4.20.0 to 4.22.5
+<details>
+<summary>Release notes</summary>
+<p><em>Sourced from <a href="https://github.com/rollup/rollup/releases">rollup's releases</a>.</em></p>
+<blockquote>
+<h2>v4.22.5</h2>
+<h2>4.22.5</h2>
+<p><em>2024-09-27</em></p>
+<h3>Bug Fixes</h3>
+<ul>
+<li>Allow parsing of certain unicode characters again (<a href="https://redirect.github.com/rollup/rollup/issues/5674">#5674</a>)</li>
+</ul>
+<h3>Pull Requests</h3>
+<ul>
+<li><a href="https://redirect.github.com/rollup/rollup/pull/5674">#5674</a>: Fix panic with unicode characters (<a href="https://github.com/sapphi-red"><code>@​sapphi-red</code></a>, <a href="https://github.com/lukastaegert"><code>@​lukastaegert</code></a>)</li>
+<li><a href="https://redirect.github.com/rollup/rollup/pull/5675">#5675</a>: chore(deps): update dependency rollup to v4.22.4 [security] (<a href="https://github.com/renovate"><code>@​renovate</code></a>[bot])</li>
+<li><a href="https://redirect.github.com/rollup/rollup/pull/5680">#5680</a>: chore(deps): update dependency <code>@​rollup/plugin-commonjs</code> to v28 (<a href="https://github.com/renovate"><code>@​renovate</code></a>[bot], <a href="https://github.com/lukastaegert"><code>@​lukastaegert</code></a>)</li>
+<li><a href="https://redirect.github.com/rollup/rollup/pull/5681">#5681</a>: chore(deps): update dependency <code>@​rollup/plugin-replace</code> to v6 (<a href="https://github.com/renovate"><code>@​renovate</code></a>[bot])</li>
+<li><a href="https://redirect.github.com/rollup/rollup/pull/5682">#5682</a>: chore(deps): update dependency <code>@​rollup/plugin-typescript</code> to v12 (<a href="https://github.com/renovate"><code>@​renovate</code></a>[bot])</li>
+<li><a href="https://redirect.github.com/rollup/rollup/pull/5684">#5684</a>: chore(deps): lock file maintenance minor/patch updates (<a href="https://github.com/renovate"><code>@​renovate</code></a>[bot])</li>
+</ul>
+<h2>v4.22.4</h2>
+<h2>4.22.4</h2>
+<p><em>2024-09-21</em></p>
+<h3>Bug Fixes</h3>
+<ul>
+<li>Fix a vulnerability in generated code that affects IIFE, UMD and CJS bundles when run in a browser context (<a href="https://redirect.github.com/rollup/rollup/issues/5671">#5671</a>)</li>
+</ul>
+<h3>Pull Requests</h3>
+<ul>
+<li><a href="https://redirect.github.com/rollup/rollup/pull/5670">#5670</a>: refactor: Use object.prototype to check for reserved properties (<a href="https://github.com/YuHyeonWook"><code>@​YuHyeonWook</code></a>)</li>
+<li><a href="https://redirect.github.com/rollup/rollup/pull/5671">#5671</a>: Fix DOM Clobbering CVE (<a href="https://github.com/lukastaegert"><code>@​lukastaegert</code></a>)</li>
+</ul>
+<h2>v4.22.3</h2>
+<h2>4.22.3</h2>
+<p><em>2024-09-21</em></p>
+<h3>Bug Fixes</h3>
+<ul>
+<li>Ensure that mutations in modules without side effects are observed while properly handling transitive dependencies (<a href="https://redirect.github.com/rollup/rollup/issues/5669">#5669</a>)</li>
+</ul>
+<h3>Pull Requests</h3>
+<ul>
+<li><a href="https://redirect.github.com/rollup/rollup/pull/5669">#5669</a>: Ensure impure dependencies of pure modules are added (<a href="https://github.com/lukastaegert"><code>@​lukastaegert</code></a>)</li>
+</ul>
+<h2>v4.22.2</h2>
+<h2>4.22.2</h2>
+<p><em>2024-09-20</em></p>
+<!-- raw HTML omitted -->
+</blockquote>
+<p>... (truncated)</p>
+</details>
+<details>
+<summary>Changelog</summary>
+<p><em>Sourced from <a href="https://github.com/rollup/rollup/blob/master/CHANGELOG.md">rollup's changelog</a>.</em></p>
+<blockquote>
+<h2>4.22.5</h2>
+<p><em>2024-09-27</em></p>
+<h3>Bug Fixes</h3>
+<ul>
+<li>Allow parsing of certain unicode characters again (<a href="https://redirect.github.com/rollup/rollup/issues/5674">#5674</a>)</li>
+</ul>
+<h3>Pull Requests</h3>
+<ul>
+<li><a href="https://redirect.github.com/rollup/rollup/pull/5674">#5674</a>: Fix panic with unicode characters (<a href="https://github.com/sapphi-red"><code>@​sapphi-red</code></a>, <a href="https://github.com/lukastaegert"><code>@​lukastaegert</code></a>)</li>
+<li><a href="https://redirect.github.com/rollup/rollup/pull/5675">#5675</a>: chore(deps): update dependency rollup to v4.22.4 [security] (<a href="https://github.com/renovate"><code>@​renovate</code></a>[bot])</li>
+<li><a href="https://redirect.github.com/rollup/rollup/pull/5680">#5680</a>: chore(deps): update dependency <code>@​rollup/plugin-commonjs</code> to v28 (<a href="https://github.com/renovate"><code>@​renovate</code></a>[bot], <a href="https://github.com/lukastaegert"><code>@​lukastaegert</code></a>)</li>
+<li><a href="https://redirect.github.com/rollup/rollup/pull/5681">#5681</a>: chore(deps): update dependency <code>@​rollup/plugin-replace</code> to v6 (<a href="https://github.com/renovate"><code>@​renovate</code></a>[bot])</li>
+<li><a href="https://redirect.github.com/rollup/rollup/pull/5682">#5682</a>: chore(deps): update dependency <code>@​rollup/plugin-typescript</code> to v12 (<a href="https://github.com/renovate"><code>@​renovate</code></a>[bot])</li>
+<li><a href="https://redirect.github.com/rollup/rollup/pull/5684">#5684</a>: chore(deps): lock file maintenance minor/patch updates (<a href="https://github.com/renovate"><code>@​renovate</code></a>[bot])</li>
+</ul>
+<h2>4.22.4</h2>
+<p><em>2024-09-21</em></p>
+<h3>Bug Fixes</h3>
+<ul>
+<li>Fix a vulnerability in generated code that affects IIFE, UMD and CJS bundles when run in a browser context (<a href="https://redirect.github.com/rollup/rollup/issues/5671">#5671</a>)</li>
+</ul>
+<h3>Pull Requests</h3>
+<ul>
+<li><a href="https://redirect.github.com/rollup/rollup/pull/5670">#5670</a>: refactor: Use object.prototype to check for reserved properties (<a href="https://github.com/YuHyeonWook"><code>@​YuHyeonWook</code></a>)</li>
+<li><a href="https://redirect.github.com/rollup/rollup/pull/5671">#5671</a>: Fix DOM Clobbering CVE (<a href="https://github.com/lukastaegert"><code>@​lukastaegert</code></a>)</li>
+</ul>
+<h2>4.22.3</h2>
+<p><em>2024-09-21</em></p>
+<h3>Bug Fixes</h3>
+<ul>
+<li>Ensure that mutations in modules without side effects are observed while properly handling transitive dependencies (<a href="https://redirect.github.com/rollup/rollup/issues/5669">#5669</a>)</li>
+</ul>
+<h3>Pull Requests</h3>
+<ul>
+<li><a href="https://redirect.github.com/rollup/rollup/pull/5669">#5669</a>: Ensure impure dependencies of pure modules are added (<a href="https://github.com/lukastaegert"><code>@​lukastaegert</code></a>)</li>
+</ul>
+<h2>4.22.2</h2>
+<p><em>2024-09-20</em></p>
+<h3>Bug Fixes</h3>
+<ul>
+<li>Revert fix for side effect free modules until other issues are investigated (<a href="https://redirect.github.com/rollup/rollup/issues/5667">#5667</a>)</li>
+</ul>
+<!-- raw HTML omitted -->
+</blockquote>
+<p>... (truncated)</p>
+</details>
+<details>
+<summary>Commits</summary>
+<ul>
+<li><a href="https://github.com/rollup/rollup/commit/bc7780c322e134492f40a76bf64afe561670425c"><code>bc7780c</code></a> 4.22.5</li>
+<li><a href="https://github.com/rollup/rollup/commit/ee138d1589a813715389cda09c2a2f7e1ac9a78f"><code>ee138d1</code></a> chore(deps): lock file maintenance minor/patch updates (<a href="https://redirect.github.com/rollup/rollup/issues/5684">#5684</a>)</li>
+<li><a href="https://github.com/rollup/rollup/commit/2d59dbcb83e2f04a74cf3345f13f007da3e0063a"><code>2d59dbc</code></a> chore(deps): update dependency <code>@​rollup/plugin-commonjs</code> to v28 (<a href="https://redirect.github.com/rollup/rollup/issues/5680">#5680</a>)</li>
+<li><a href="https://github.com/rollup/rollup/commit/524670de7e0ef5bc8aa51e748149e3080156c547"><code>524670d</code></a> Fix panic with unicode characters (<a href="https://redirect.github.com/rollup/rollup/issues/5674">#5674</a>)</li>
+<li><a href="https://github.com/rollup/rollup/commit/9c5e34568b60a9e97c4518cb6c3a9708c54908d7"><code>9c5e345</code></a> chore(deps): update dependency <code>@​rollup/plugin-replace</code> to v6 (<a href="https://redirect.github.com/rollup/rollup/issues/5681">#5681</a>)</li>
+<li><a href="https://github.com/rollup/rollup/commit/6d75b6d7242da5e69c86a57b2f33c54e9950a1fa"><code>6d75b6d</code></a> chore(deps): update dependency <code>@​rollup/plugin-typescript</code> to v12 (<a href="https://redirect.github.com/rollup/rollup/issues/5682">#5682</a>)</li>
+<li><a href="https://github.com/rollup/rollup/commit/89a68c2a69eefaaf5544f83367f31d98360354ed"><code>89a68c2</code></a> chore(deps): update dependency rollup to v4.22.4 [security] (<a href="https://redirect.github.com/rollup/rollup/issues/5675">#5675</a>)</li>
+<li><a href="https://github.com/rollup/rollup/commit/79c0aba353ca84c0e22c3cfe9eee433ba83f3670"><code>79c0aba</code></a> 4.22.4</li>
+<li><a href="https://github.com/rollup/rollup/commit/e2552c9e955e0a61f70f508200ee9f752f85a541"><code>e2552c9</code></a> Fix DOM Clobbering CVE (<a href="https://redirect.github.com/rollup/rollup/issues/5671">#5671</a>)</li>
+<li><a href="https://github.com/rollup/rollup/commit/10ab90ea612f80de21c6c433c2d792eaf7b45f1c"><code>10ab90e</code></a> refactor: Use object.prototype to check for reserved properties (<a href="https://redirect.github.com/rollup/rollup/issues/5670">#5670</a>)</li>
+<li>Additional commits viewable in <a href="https://github.com/rollup/rollup/compare/v4.20.0...v4.22.5">compare view</a></li>
+</ul>
+</details>
+<br />
+
+
+[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=rollup&package-manager=npm_and_yarn&previous-version=4.20.0&new-version=4.22.5)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)
+
+Dependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.
+
+[//]: # (dependabot-automerge-start)
+[//]: # (dependabot-automerge-end)
+
+---
+
+<details>
+<summary>Dependabot commands and options</summary>
+<br />
+
+You can trigger Dependabot actions by commenting on this PR:
+- `@dependabot rebase` will rebase this PR
+- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it
+- `@dependabot merge` will merge this PR after your CI passes on it
+- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it
+- `@dependabot cancel merge` will cancel a previously requested merge and block automerging
+- `@dependabot reopen` will reopen this PR if it is closed
+- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually
+- `@dependabot show <dependency name> ignore conditions` will show all of the ignore conditions of the specified dependency
+- `@dependabot ignore <dependency name> major version` will close this group update PR and stop Dependabot creating any more for the specific dependency's major version (unless you unignore this specific dependency's major version or upgrade to it yourself)
+- `@dependabot ignore <dependency name> minor version` will close this group update PR and stop Dependabot creating any more for the specific dependency's minor version (unless you unignore this specific dependency's minor version or upgrade to it yourself)
+- `@dependabot ignore <dependency name>` will close this group update PR and stop Dependabot creating any more for the specific dependency (unless you unignore this specific dependency or upgrade to it yourself)
+- `@dependabot unignore <dependency name>` will remove all of the ignore conditions of the specified dependency
+- `@dependabot unignore <dependency name> <ignore condition>` will remove the ignore condition of the specified dependency and ignore conditions
+You can disable automated security fix PRs for this repo from the [Security Alerts page](https://github.com/tr4200812/docs/network/alerts).
+
+</details>
+
