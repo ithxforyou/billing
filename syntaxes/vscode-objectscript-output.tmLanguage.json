@@ -1,6 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
   "name": "vscode-objectscript-output",
+
   "scopeName": "source.vscode_objectscript_output",
   "patterns": [
     {
